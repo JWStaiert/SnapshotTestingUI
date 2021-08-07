@@ -79,9 +79,9 @@
 		80796C1F26BEF257007AFC6A = {
 			isa = PBXGroup;
 			children = (
-				80796C2A26BEF257007AFC6A /* ContentViewer */,
-				80796C4126BEF258007AFC6A /* ContentViewerTests */,
-				80796C4C26BEF258007AFC6A /* ContentViewerUITests */,
+				80796C2A26BEF257007AFC6A /* Source */,
+				80796C4126BEF258007AFC6A /* Tests */,
+				80796C4C26BEF258007AFC6A /* TestsUI */,
 				80796C2926BEF257007AFC6A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -96,7 +96,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		80796C2A26BEF257007AFC6A /* ContentViewer */ = {
+		80796C2A26BEF257007AFC6A /* Source */ = {
 			isa = PBXGroup;
 			children = (
 				80796C2B26BEF257007AFC6A /* AppDelegate.swift */,
@@ -107,25 +107,25 @@
 				80796C3626BEF258007AFC6A /* LaunchScreen.storyboard */,
 				80796C3926BEF258007AFC6A /* Info.plist */,
 			);
-			path = ContentViewer;
+			path = Source;
 			sourceTree = "<group>";
 		};
-		80796C4126BEF258007AFC6A /* ContentViewerTests */ = {
+		80796C4126BEF258007AFC6A /* Tests */ = {
 			isa = PBXGroup;
 			children = (
 				80796C4226BEF258007AFC6A /* ContentViewerTests.swift */,
 				80796C4426BEF258007AFC6A /* Info.plist */,
 			);
-			path = ContentViewerTests;
+			path = Tests;
 			sourceTree = "<group>";
 		};
-		80796C4C26BEF258007AFC6A /* ContentViewerUITests */ = {
+		80796C4C26BEF258007AFC6A /* TestsUI */ = {
 			isa = PBXGroup;
 			children = (
 				80796C4D26BEF258007AFC6A /* ContentViewerUITests.swift */,
 				80796C4F26BEF258007AFC6A /* Info.plist */,
 			);
-			path = ContentViewerUITests;
+			path = TestsUI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -437,7 +437,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = ContentViewer/Info.plist;
+				INFOPLIST_FILE = Source/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -455,7 +455,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = ContentViewer/Info.plist;
+				INFOPLIST_FILE = Source/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -473,7 +473,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = ContentViewerTests/Info.plist;
+				INFOPLIST_FILE = Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -494,7 +494,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = ContentViewerTests/Info.plist;
+				INFOPLIST_FILE = Tests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -514,7 +514,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = ContentViewerUITests/Info.plist;
+				INFOPLIST_FILE = TestsUI/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -533,7 +533,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = ContentViewerUITests/Info.plist;
+				INFOPLIST_FILE = TestsUI/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
