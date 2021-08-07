@@ -1,33 +1,79 @@
-//
-//  ContentViewerTests.swift
-//  ContentViewerTests
+//  SnapshotTestingUI/ContentViewer/Tests/ContentViewer+UnitTests.swift
 //
 //  Created by Jason William Staiert on 8/7/21.
 //
+//  Copyright © 2021 by Jason William Staiert. All Rights Reserved.
 
+@testable import SnapshotTestingUI
+
+import SnapshotTestingEx
+import SnapshotTesting
+import SwiftUI
 import XCTest
-@testable import ContentViewer
 
-class ContentViewerTests: XCTestCase {
+struct TestView: SwiftUI.View {
 
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+  @EnvironmentObject var model: RootViewModel
+
+  var body: some SwiftUI.View {
+
+    VStack {
+      Button(action: { model.dismiss() }, label: {
+        Text("Press to Dismiss")
+      })
     }
+    .frame(
+      maxWidth: .greatestFiniteMagnitude,
+      maxHeight: .greatestFiniteMagnitude,
+      alignment: .center
+    )
+  }
+}
 
-    override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
+class ContentViewer_UnitTests: XCTestCase {
 
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
+  func test_viewCanPass() throws {
 
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
+    let _ = ContentViewer( { TestView() })
+  }
 
+  func test_viewCanFail() throws {
+
+    XCTFail("Test not implemented.")
+  }
+
+  func test_viewSnapshotComparison() throws {
+
+    XCTFail("Test not implemented.")
+  }
+
+  func test_uiViewCanPass() throws {
+
+    XCTFail("Test not implemented.")
+  }
+
+  func test_uiViewCanFail() throws {
+
+    XCTFail("Test not implemented.")
+  }
+
+  func test_uiViewSnapshotComparison() throws {
+
+    XCTFail("Test not implemented.")
+  }
+
+  func test_uiViewControllerCanPass() throws {
+
+    XCTFail("Test not implemented.")
+  }
+
+  func test_uiViewControllerCanFail() throws {
+
+    XCTFail("Test not implemented.")
+  }
+
+  func test_uiViewControllerSnapshotComparison() throws {
+
+    XCTFail("Test not implemented.")
+  }
 }
