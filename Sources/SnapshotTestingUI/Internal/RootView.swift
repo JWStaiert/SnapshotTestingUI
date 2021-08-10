@@ -8,7 +8,7 @@ import SwiftUI
 
 internal struct RootView<Content>: View where Content: View {
 
-  @EnvironmentObject var model: RootViewModel
+  //@EnvironmentObject var model: RootViewModel
 
   @ViewBuilder var content: () -> Content
 
@@ -19,24 +19,27 @@ internal struct RootView<Content>: View where Content: View {
 
   var body: some View {
 
-    ZStack {
+    GeometryReader {
 
-      content()
-        .environmentObject(model)
+      gp in
 
-      //RelocatableUI()
-      //  .environmentObject(model)
-    }
-    .position(
-      CGPoint(
-        x: model.screenProperties.width / 2,
-        y: model.screenProperties.height / 2
+      ZStack {
+
+        content()
+
+        RelocatableUI()
+      }
+      .position(
+        CGPoint(
+          x: gp.size.width / 2,
+          y: gp.size.height / 2
+        )
       )
-    )
-    .frame(
-      maxWidth: .greatestFiniteMagnitude,
-      maxHeight: .greatestFiniteMagnitude,
-      alignment: .center
-    )
+      .frame(
+        maxWidth: .greatestFiniteMagnitude,
+        maxHeight: .greatestFiniteMagnitude,
+        alignment: .center
+      )
+    }
   }
 }

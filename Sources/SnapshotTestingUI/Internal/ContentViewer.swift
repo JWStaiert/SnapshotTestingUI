@@ -21,7 +21,7 @@ internal class ContentViewer {
     let rootView = RootView(content).environmentObject(rootViewModel)
 
     let rootViewController = ContentHostingController(rootView: rootView)
-    rootViewController.modalPresentationStyle = .overCurrentContext
+    rootViewController.modalPresentationStyle = .fullScreen
     rootViewController.modalTransitionStyle = .crossDissolve
     rootViewModel.controller = rootViewController
 
@@ -35,7 +35,7 @@ internal class ContentViewer {
   }
 
   init<Content>(
-    _ content: Content
+    _ type: Content.Type
   ) where Content: UIView {
 
     let rootViewModel = RootViewModel()
@@ -46,7 +46,7 @@ internal class ContentViewer {
     let rootView = RootView({ RepresentableUIView<Content>() }).environmentObject(rootViewModel)
 
     let rootViewController = ContentHostingController(rootView: rootView)
-    rootViewController.modalPresentationStyle = .overCurrentContext
+    rootViewController.modalPresentationStyle = .fullScreen
     rootViewController.modalTransitionStyle = .crossDissolve
     rootViewModel.controller = rootViewController
 
@@ -60,7 +60,7 @@ internal class ContentViewer {
   }
 
   init<Content>(
-    _ content: Content
+    _ type: Content.Type
   ) where Content: UIViewController {
 
     let rootViewModel = RootViewModel()
@@ -71,7 +71,7 @@ internal class ContentViewer {
     let rootView = RootView({ RepresentableUIViewController<Content>() }).environmentObject(rootViewModel)
 
     let rootViewController = ContentHostingController(rootView: rootView)
-    rootViewController.modalPresentationStyle = .overCurrentContext
+    rootViewController.modalPresentationStyle = .fullScreen
     rootViewController.modalTransitionStyle = .crossDissolve
     rootViewModel.controller = rootViewController
 
