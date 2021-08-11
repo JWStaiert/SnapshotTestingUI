@@ -9,78 +9,64 @@ import SwiftUI
 
 internal class ContentViewer {
 
-  init<Content>(
-    @ViewBuilder _ content: @escaping () -> Content
+  var rootViewController: UIViewController?
+
+  private func present<Content>(view: Content, waitForUserInput: Bool) where Content: View {
+
+    let rootViewModel = RootViewModel()
+
+    let expectation = XCTestExpectation(description: "Waiting for dismiss.")
+    rootViewModel.expectation = expectation
+
+    let rootView = view.environmentObject(rootViewModel)
+
+    rootViewController = ContentHostingController(rootView: rootView)
+    rootViewController!.modalPresentationStyle = .fullScreen
+    rootViewController!.modalTransitionStyle = .crossDissolve
+    rootViewModel.controller = rootViewController!
+
+    let scene = UIApplication.shared.connectedScenes.first!
+    let sceneDelegate = scene.delegate as! UIWindowSceneDelegate
+    let sceneViewController = sceneDelegate.window!!.rootViewController!
+
+    if (waitForUserInput) {
+
+      sceneViewController.present(rootViewController!, animated: true, completion: nil)
+
+      XCTWaiter().wait(for: [expectation], timeout: .greatestFiniteMagnitude)
+    }
+  }
+
+  func present<Content>(
+    @ViewBuilder _ content: @escaping () -> Content,
+    waitForUserInput: Bool = true
   ) where Content: View {
 
-    let rootViewModel = RootViewModel()
-
-    let expectation = XCTestExpectation(description: "Waiting for dismiss.")
-    rootViewModel.expectation = expectation
-
-    let rootView = RootView(content).environmentObject(rootViewModel)
-
-    let rootViewController = ContentHostingController(rootView: rootView)
-    rootViewController.modalPresentationStyle = .fullScreen
-    rootViewController.modalTransitionStyle = .crossDissolve
-    rootViewModel.controller = rootViewController
-
-    let scene = UIApplication.shared.connectedScenes.first!
-    let sceneDelegate = scene.delegate as! UIWindowSceneDelegate
-    let sceneViewController = sceneDelegate.window!!.rootViewController!
-
-    sceneViewController.present(rootViewController, animated: true, completion: nil)
-
-    XCTWaiter().wait(for: [expectation], timeout: .greatestFiniteMagnitude)
+    present(
+      view: RootView(content),
+      waitForUserInput: waitForUserInput
+    )
   }
 
-  init<Content>(
-    _ type: Content.Type
+  func present<Content>(
+    _ type: Content.Type,
+    waitForUserInput: Bool = true
   ) where Content: UIView {
 
-    let rootViewModel = RootViewModel()
-
-    let expectation = XCTestExpectation(description: "Waiting for dismiss.")
-    rootViewModel.expectation = expectation
-
-    let rootView = RootView({ RepresentableUIView<Content>() }).environmentObject(rootViewModel)
-
-    let rootViewController = ContentHostingController(rootView: rootView)
-    rootViewController.modalPresentationStyle = .fullScreen
-    rootViewController.modalTransitionStyle = .crossDissolve
-    rootViewModel.controller = rootViewController
-
-    let scene = UIApplication.shared.connectedScenes.first!
-    let sceneDelegate = scene.delegate as! UIWindowSceneDelegate
-    let sceneViewController = sceneDelegate.window!!.rootViewController!
-
-    sceneViewController.present(rootViewController, animated: true, completion: nil)
-
-    XCTWaiter().wait(for: [expectation], timeout: .greatestFiniteMagnitude)
+    present(
+      view: RootView({ RepresentableUIView<Content>() }),
+      waitForUserInput: waitForUserInput
+    )
   }
 
-  init<Content>(
-    _ type: Content.Type
+  func present<Content>(
+    _ type: Content.Type,
+    waitForUserInput: Bool = true
   ) where Content: UIViewController {
 
-    let rootViewModel = RootViewModel()
-
-    let expectation = XCTestExpectation(description: "Waiting for dismiss.")
-    rootViewModel.expectation = expectation
-
-    let rootView = RootView({ RepresentableUIViewController<Content>() }).environmentObject(rootViewModel)
-
-    let rootViewController = ContentHostingController(rootView: rootView)
-    rootViewController.modalPresentationStyle = .fullScreen
-    rootViewController.modalTransitionStyle = .crossDissolve
-    rootViewModel.controller = rootViewController
-
-    let scene = UIApplication.shared.connectedScenes.first!
-    let sceneDelegate = scene.delegate as! UIWindowSceneDelegate
-    let sceneViewController = sceneDelegate.window!!.rootViewController!
-
-    sceneViewController.present(rootViewController, animated: true, completion: nil)
-
-    XCTWaiter().wait(for: [expectation], timeout: .greatestFiniteMagnitude)
+    present(
+      view: RootView({ RepresentableUIViewController<Content>() }),
+      waitForUserInput: waitForUserInput
+    )
   }
 }

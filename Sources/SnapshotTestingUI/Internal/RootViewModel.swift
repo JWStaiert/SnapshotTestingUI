@@ -9,18 +9,9 @@ import XCTest
 
 internal class RootViewModel: ObservableObject {
 
-  let oneGridUnit: CGFloat
-
   var controller: UIViewController?
 
   var expectation: XCTestExpectation?
-
-  init() {
-
-    let size = UIScreen.main.bounds.size
-
-    oneGridUnit = max(size.width, size.height) / 10
-  }
 
   private func dismiss() {
 

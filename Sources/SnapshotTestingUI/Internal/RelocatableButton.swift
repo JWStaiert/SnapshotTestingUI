@@ -33,12 +33,6 @@ internal struct RelocatableButton<Label>: View where Label: View {
     self.label = label
   }
 
-  #warning("""
-    TOOD: Increase button action area to include entire background. Presently
-    it includes only the label text area which is inconveniently small on iPad
-    devices.
-    """)
-
   var body: some View {
 
     GeometryReader {
@@ -59,7 +53,7 @@ internal struct RelocatableButton<Label>: View where Label: View {
           height: gp.size.height
         )
         .shadow(
-          color: Color.black.opacity(0.25),
+          color: Color.primary.opacity(0.35),
           radius: 4,
           x: 4,
           y: 4
@@ -88,28 +82,39 @@ internal struct RelocatableButton<Label>: View where Label: View {
         )
 
         Button(action: self.action, label: {
-          self.label()
-            .font(.system(.headline))
-            .foregroundColor(
-              self.foregroundColor
+
+          ZStack {
+
+            RoundedRectangle(
+              cornerRadius: gp.size.width / 2,
+              style: .circular
             )
+            .foregroundColor(
+              self.backgroundColor
+            )
+            .frame(
+              width:  gp.size.width,
+              height: gp.size.height
+            )
+            .shadow(
+              color: Color.primary.opacity(0.35),
+              radius: 4,
+              x: 4,
+              y: 4
+            )
+
+            self.label()
+              .font(.system(.headline))
+              .foregroundColor(
+                self.foregroundColor
+              )
+          }
         }
         )
-        .frame(
-          width:  gp.size.width,
-          height: gp.size.height
-        )
-        .background(
-          self.backgroundColor
-        )
-        .cornerRadius(
-          gp.size.width / 2
-        )
-        .padding()
         .position(
           CGPoint(
             x: gp.frame(in: .local).origin.x + self.offsetNow.x,
-            y: gp.frame(in: .local).origin.y + self.offsetNow.y + gp.size.height / 2
+            y: gp.frame(in: .local).origin.y + self.offsetNow.y + gp.size.height
           )
         )
       }

@@ -10,16 +10,13 @@ internal struct RelocatableUI: View {
 
   @EnvironmentObject var model: RootViewModel
 
-  #warning("""
-    TOOD: Look into removing the oneGridUnit constant from RootViewModel. Would
-    prefer it to be a constant defined within body.
-    """)
-
   var body: some View {
 
     GeometryReader {
 
       gp in
+
+      let oneUnit = max(gp.size.width, gp.size.height) / 10
 
       ZStack {
 
@@ -30,14 +27,14 @@ internal struct RelocatableUI: View {
           label: { Text("PASS") }
         )
         .frame(
-          width: model.oneGridUnit,
-          height: model.oneGridUnit,
+          width: oneUnit,
+          height: oneUnit,
           alignment: .center
         )
         .position(
           CGPoint(
-            x: gp.frame(in: .local).width - 0.5 * model.oneGridUnit,
-            y: gp.frame(in: .local).height - model.oneGridUnit
+            x: gp.frame(in: .local).width - 0.5 * oneUnit,
+            y: gp.frame(in: .local).height - 1.5 * oneUnit
           )
         )
 
@@ -48,14 +45,14 @@ internal struct RelocatableUI: View {
           label: { Text("FAIL") }
         )
         .frame(
-          width: model.oneGridUnit,
-          height: model.oneGridUnit,
+          width: oneUnit,
+          height: oneUnit,
           alignment: .center
         )
         .position(
           CGPoint(
-            x: 1.5 * model.oneGridUnit,
-            y: gp.frame(in: .local).height - model.oneGridUnit
+            x: 1.5 * oneUnit,
+            y: gp.frame(in: .local).height - 1.5 * oneUnit
           )
         )
       }
