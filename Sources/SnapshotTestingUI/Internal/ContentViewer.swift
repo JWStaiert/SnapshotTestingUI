@@ -15,8 +15,8 @@ internal class ContentViewer {
 
     let rootViewModel = RootViewModel()
 
-    let expectation = XCTestExpectation(description: "Waiting for dismiss.")
-    rootViewModel.expectation = expectation
+    let viewDismissedExpectation = XCTestExpectation(description: "Waiting for dismiss.")
+    rootViewModel.expectation = viewDismissedExpectation
 
     let rootView = view.environmentObject(rootViewModel)
 
@@ -29,11 +29,13 @@ internal class ContentViewer {
     let sceneDelegate = scene.delegate as! UIWindowSceneDelegate
     let sceneViewController = sceneDelegate.window!!.rootViewController!
 
+    let viewPresentedExpectation = XCTestExpectation(description: "Waiting for presentation.")
+    sceneViewController.present(rootViewController!, animated: false, completion: { viewPresentedExpectation.fulfill() })
+    XCTWaiter().wait(for: [viewPresentedExpectation], timeout: .greatestFiniteMagnitude)
+
     if (waitForUserInput) {
 
-      sceneViewController.present(rootViewController!, animated: true, completion: nil)
-
-      XCTWaiter().wait(for: [expectation], timeout: .greatestFiniteMagnitude)
+      XCTWaiter().wait(for: [viewDismissedExpectation], timeout: .greatestFiniteMagnitude)
     }
   }
 
@@ -68,5 +70,28 @@ internal class ContentViewer {
       view: RootView({ RepresentableUIViewController<Content>() }),
       waitForUserInput: waitForUserInput
     )
+  }
+
+  func snapshot() -> UIImage {
+
+    rootViewController?.loadView()
+
+    let view = rootViewController?.viewIfLoaded!
+
+    let renderer = UIGraphicsImageRenderer(size: view!.bounds.size)
+
+    let image = renderer.image {
+
+      _ in
+
+      view!.drawHierarchy(in: view!.bounds, afterScreenUpdates: true)
+    }
+
+    return image
+  }
+
+  func dismiss() {
+
+    rootViewController?.dismiss(animated: false)
   }
 }

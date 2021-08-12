@@ -15,7 +15,7 @@ internal class RootViewModel: ObservableObject {
 
   private func dismiss() {
 
-    controller?.dismiss(animated: true)
+    controller?.dismiss(animated: false)
     expectation?.fulfill()
   }
 
